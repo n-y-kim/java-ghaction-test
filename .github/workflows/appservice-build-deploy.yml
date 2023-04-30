@@ -1,0 +1,39 @@
+name: Build and deploy Java app to Azure App Service with azure-maven-plugin
+
+on:
+  push:
+    branches: [ "api" ]
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloning repository
+        uses: actions/checkout@v3
+
+      - name: Install Maven
+        run: sudo apt-get install maven
+
+      - name: Build with Maven
+        run: mvn -f api/pom.xml clean install
+
+      - name: Building web app
+        uses: azure/appservice-build@v3
+        with:
+          platform: Java
+          platform-version: 17
+          source-directory: api/
+          # output-directory: 
+
+      - name: Deploying web app to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: appsvc-roadshow-test-api
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          # package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/api/target/*.jar'
+          #publish-profile: ${{ secrets.AZURE_WEB_APP_PUBLISH_PROFILE }}
