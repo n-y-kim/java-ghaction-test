@@ -32,7 +32,7 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: mvn -f api/pom.xml clean install && chmod +x mvnw
+        run: mvn -f api/pom.xml clean install && chmod +x api/mvnw
 
       - name: Building web app
         uses: azure/appservice-build@v3
