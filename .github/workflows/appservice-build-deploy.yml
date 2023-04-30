@@ -1,5 +1,10 @@
 name: Build and deploy Java app to Azure App Service with azure-maven-plugin
 
+env:
+  AZURE_WEBAPP_NAME: appsvc-java-ghaction-test-api  # set this to the name of your Azure Web App
+  JAVA_VERSION: '17'                  # set this to the Java version to use
+  DISTRIBUTION: zulu    
+
 on:
   push:
     branches: [ "api" ]
@@ -19,6 +24,13 @@ jobs:
       - name: Install Maven
         run: sudo apt-get install maven
 
+      - name: Set up Java version
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.DISTRIBUTION }}
+          cache: 'maven'
+
       - name: Build with Maven
         run: mvn -f api/pom.xml clean install
 
@@ -26,14 +38,14 @@ jobs:
         uses: azure/appservice-build@v3
         with:
           platform: Java
-          platform-version: 1.7.0
+          platform-version: 17
           source-directory: api/
           # output-directory: 
 
       - name: Deploying web app to Azure
         uses: azure/webapps-deploy@v2
         with:
-          app-name: appsvc-roadshow-test-api
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           # package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/api/target/*.jar'
           #publish-profile: ${{ secrets.AZURE_WEB_APP_PUBLISH_PROFILE }}
