@@ -72,12 +72,12 @@
 		        <configuration>
 		            <schemaVersion>v2</schemaVersion>
 		            <subscriptionId>43fec997-2a49-4f32-8cec-81e390065f4f</subscriptionId>
-		            <resourceGroup>rg-roadshow-test</resourceGroup>
-		            <appName>appsvc-roadshow-test-api</appName>
+		            <resourceGroup>rg-java-ghaction-test</resourceGroup>
+		            <appName>appsvc-java-ghaction-test-api</appName>
 		            <pricingTier>S1</pricingTier>
 		            <region>koreacentral</region>
-		            <appServicePlanName>asplan-roadshow-test-api</appServicePlanName>
-		            <appServicePlanResourceGroup>rg-roadshow-test</appServicePlanResourceGroup>
+		            <appServicePlanName>asplan-java-ghaction-test-api</appServicePlanName>
+		            <appServicePlanResourceGroup>rg-java-ghaction-test</appServicePlanResourceGroup>
 		            <runtime>
 		                <os>Linux</os>
 		                <javaVersion>Java 17</javaVersion>

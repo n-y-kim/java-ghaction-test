@@ -2,7 +2,7 @@ name: Build and deploy Java app to Azure App Service with azure-maven-plugin
 
 on:
   push:
-    branches: [ "api" ]
+    branches: [ "main" ]
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
